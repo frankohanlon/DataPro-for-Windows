@@ -1,0 +1,35 @@
+d_element,Data_Type,Input_Array_Pos,Coef_1,Coef_2,Coef_3,Coef_4,Coef_5,Coef_6,Coef_7,Qc_Param_High,Qc_Param_Low,QC_Param_Step,Output_Header_Name,Ouput_Header_Units,Output_Header_Measurement_Type
+array_id,ignore,0,0,0,0,0,0,0,0,0,0,0,ignore,ignore,ignore
+day,dated,1,0,0,0,0,0,0,0,0,0,0,ignore,ignore,ignore
+hourminute,dateh,2,0,0,0,0,0,0,0,0,0,0,ignore,ignore,ignore
+Battery_avg,num,3,0,0,0,0,0,0,0,0,0,0,Battery_avg,Volts,avg
+RefTemp_avg,num,4,0,0,0,0,0,0,0,0,0,0,RefTemp_avg,deg C,avg
+T1_1_avg,num,5,0,0,0,0,0,0,0,0,0,0,T1_1_avg,deg C,avg
+T1_2_avg,num,6,0,0,0,0,0,0,0,0,0,0,T1_2_avg,deg C,avg
+T1_3_avg,num,7,0,0,0,0,0,0,0,0,0,0,T1_3_avg,deg C,avg
+T1_4_avg,num,8,0,0,0,0,0,0,0,0,0,0,T1_4_avg,deg C,avg
+T1_5_avg,num,9,0,0,0,0,0,0,0,0,0,0,T1_5_avg,deg C,avg
+T1_6_avg,num,10,0,0,0,0,0,0,0,0,0,0,T1_6_avg,deg C,avg
+T1_7_avg,num,11,0,0,0,0,0,0,0,0,0,0,T1_7_avg,deg C,avg
+T1_8_avg,num,12,0,0,0,0,0,0,0,0,0,0,T1_8_avg,deg C,avg
+T1_9_avg,num,13,0,0,0,0,0,0,0,0,0,0,T1_9_avg,deg C,avg
+T1_10_avg,num,14,0,0,0,0,0,0,0,0,0,0,T1_10_avg,deg C,avg
+T1_11_avg,num,15,0,0,0,0,0,0,0,0,0,0,T1_11_avg,deg C,avg
+SF_Top_avg,num,16,0,0,0,0,0,0,0,0,0,0,SF_Top_avg,unknown,avg
+SF_2nd_avg,num,17,0,0,0,0,0,0,0,0,0,0,SF_2nd_avg,unknown,avg
+SF_3rd_avg,num,18,0,0,0,0,0,0,0,0,0,0,SF_3rd_avg,unknown,avg
+SF_4th_avg,num,19,0,0,0,0,0,0,0,0,0,0,SF_4th_avg,unknown,avg
+WC_Top_avg,num,20,0,0,0,0,0,0,0,0,0,0,WC_Top_avg,unknown,avg
+WC_2nd_avg,num,21,0,0,0,0,0,0,0,0,0,0,WC_2nd_avg,unknown,avg
+WC_3rd_avg,num,22,0,0,0,0,0,0,0,0,0,0,WC_3rd_avg,unknown,avg
+WC_4th_avg,num,23,0,0,0,0,0,0,0,0,0,0,WC_4th_avg,unknown,avg
+Wlevel_avg,num,24,0,0,0,0,0,0,0,0,0,0,Wlevel_avg,unknown,avg
+T1_12_avg,num,25,0,0,0,0,0,0,0,0,0,0,T1_12_avg,unknown,avg
+phOut_avg,num,26,0,0,0,0,0,0,0,0,0,0,phOut_avg,unknown,avg
+pH_avg,num,27,0,0,0,0,0,0,0,0,0,0,pH_avg,unknown,avg
+PARHoriz_avg,num,28,0,0,0,0,0,0,0,0,0,0,PARHoriz_avg,unknown,avg
+SWInc_1_avg,num,29,0,0,0,0,0,0,0,0,0,0,SWInc_1_avg,unknown,avg
+SWRef_avg,num,30,0,0,0,0,0,0,0,0,0,0,SWRef_avg,unknown,avg
+LWInc_avg,num,31,0,0,0,0,0,0,0,0,0,0,LWInc_avg,unknown,avg
+Lwref_avg,num,32,0,0,0,0,0,0,0,0,0,0,Lwref_avg,unknown,avg
+Tsensor_avg,num,33,0,0,0,0,0,0,0,0,0,0,Tsensor_avg,unknown,avg

@@ -155,26 +155,30 @@ if not os.path.exists(keyfile.get('main', 'qc_log_dir')):
 ####################################################################################################################################################
 
 # initialize column deals for the date functions
-yearcol = -1
-daycol = -1
-timecol = -1
-tmstmpcol = -1
+if (keyfile.get('main', 'logger_type') == 'CR10X' or keyfile.get('main', 'logger_type') == 'Array') :
+    yearcol = -1
+    daycol = -1
+    timecol = -1
+    tmstmpcol = -1
 
-for element in siteList :
-    col_type =  siteList[element]
-    if col_type['Data_Type'] == 'datey' :
-        yearcol = col_type['Input_Array_Pos']
-    elif col_type['Data_Type'] == 'dated' :
-        daycol = col_type['Input_Array_Pos']
-    elif col_type['Data_Type'] == 'dateh' :
-        timecol = col_type['Input_Array_Pos']
-    elif col_type['Data_Type'] == 'tmstmpcol' :
-        tmstmpcol = col_type['Input_Array_Pos']
-# type change the values we pulled form the site dictioary from string to integer
-yearcol = int(yearcol)
-daycol = int(daycol)
-timecol = int(timecol)
-tmstmcol = int(tmstmpcol)
+    for element in siteList :
+        col_type =  siteList[element]
+        if col_type['Data_Type'] == 'datey' :
+            yearcol = col_type['Input_Array_Pos']
+        elif col_type['Data_Type'] == 'dated' :
+            daycol = col_type['Input_Array_Pos']
+        elif col_type['Data_Type'] == 'dateh' :
+            timecol = col_type['Input_Array_Pos']
+        elif col_type['Data_Type'] == 'tmstmpcol' :
+            tmstmpcol = col_type['Input_Array_Pos']
+    # type change the values we pulled form the site dictioary from string to integer
+    yearcol = int(yearcol)
+    daycol = int(daycol)
+    timecol = int(timecol)
+elif (keyfile.get('main', 'logger_type') == 'Table' ) :
+    col_type = siteList[element]
+    if col_type['Data_Type'] == 'tmstmpcol' :
+        tmstmpcol = int(col_type['Input_Array_Pos'])
 
 ####################################################################################
 ##  1) Read in the entire input data file                                         ##
@@ -201,13 +205,14 @@ try:
 
 except :
     print "** couldn't open the input data file"
+    print keyfile.get('main', 'input_data_file')
     sys.exit(1)
 output_file = {}
 
 ###############################################
 ## Try reading in a couple thermistor files  ##
 ###############################################
-if keyfile.get('main','therm1') :
+if keyfile.get('main','therm1') != 'null':
     try:
         therm1_fh = open(keyfile.get('main', 'therm1'), 'r')
         all_therms = therm1_fh.readlines()
@@ -221,9 +226,9 @@ if keyfile.get('main','therm1') :
             therm_1_c.append(float(line_split[4]))
         therm1_fh.close()
     except:
-        print 'problem opening therm_1 file for reading'
-
-if keyfile.get('main','therm1') :
+        print 'problem opening therm_1 file for reading; either set in key to null: "therm1 = null" or check the file location.'
+        sys.exit(1)
+if keyfile.get('main','therm2') != 'null':
     try:
         therm2_fh = open(keyfile.get('main', 'therm2'), 'r')
         all_therms = therm2_fh.readlines()
@@ -237,7 +242,8 @@ if keyfile.get('main','therm1') :
             therm_2_c.append(float(line_split[4]))
         therm2_fh.close()
     except:
-        print 'problem opening therm_2 file for reading'
+        print 'problem opening therm_2 file for reading; either set in key to null: "therm1 = null" or check the file location.'
+        sys.exit(1)
 
 ##################################################
 ## Reading in the last date in the individual   ##
@@ -306,7 +312,7 @@ for line in all_input_data :
         #print 'array: %i and %s' % (len(in_array), keyfile.get('main', 'arrays') )
         if len(in_array) == int(keyfile.get('main', 'arrays')) :
         #            print 'array_id = %s & %i,   logger type = %s' % (keyfile.get('main', 'array_id'), in_array[0], keyfile.get('main','logger_type'))
-            if keyfile.get('main','logger_type') == 'CR10X' :
+            if (keyfile.get('main', 'logger_type') == 'CR10X' or keyfile.get('main', 'logger_type') == 'Array') :
                 # this is a check to make sure that we're looking at a line of data rather than text like a header.
                 try:
                     array_id = int(in_array[0])
@@ -328,8 +334,7 @@ for line in all_input_data :
                 # Here is a test to make sure the first column value is really an integer
                 array_id = int(in_array[0])
     #            print 'array_id = %s & %i,   logger type = %s' % (keyfile.get('main', 'array_id'), in_array[0], keyfile.get('main','logger_type'))
-                if int(keyfile.get('main', 'array_id')) == int(in_array[0]) and keyfile.get('main','logger_type') == 'CR10X' :
-
+                if int(keyfile.get('main', 'array_id')) == int(in_array[0]) and (keyfile.get('main','logger_type') == 'CR10X' or keyfile.get('main','logger_type') == 'Array'):
                     ##################
                     ## Get the date ##
                     ##################
