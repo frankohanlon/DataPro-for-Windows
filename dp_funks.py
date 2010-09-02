@@ -47,6 +47,21 @@ poly(data_element, coef_0, coef_1, coef_2, coef_3, coef_4, coef_5, coef_6, bad_d
     arg 8 = bad data value (in case of error)
     Return = result from the polynomial
 
+flux(data_element, posical, negacal, bad_data_val)
+    arg 0 = the data element from the input data file
+    arg 1 = multiplier for a positive data element value (posical * data_element)
+    arg 2 = multiplier for a negative data element value (negacal * data_element)
+    arg 3 = bad data value (in case of error)
+    Return = if (data_element >= 0) then: (posical * data_element) else: (negacal * data_element)
+
+rt_sensor(data_element, val_a, val_b, val_c, bad_data_val)
+   arg 0 = the data element from the input data file
+   arg 1 = a divsor
+   arg 2 = an offset
+   arg 3 = a multiplier
+   arg 4 = bad data value (in case or error)
+   Return = ( ( data_element / val_a ) + val_b ) / val_c
+
 getyear(jday)
     arg 0 = the julian day from the input file
     Return = the year value the julian day comes from.  Choices are this year and last year.  
@@ -194,10 +209,18 @@ out_data =  dp_funks.data_process(siteList[element], \
     # precip = Could do a totalize down the road but for present, maybe check the air temperature (column specified in the coefficients table again)
     old_line_str = oldline.split(',')
     line_str = line.split(',')
-    data_element = float( line_str[ int( data_point_dict[ 'Input_Array_Pos' ] ) ] )
-    old_data_element = float( old_line_str[ int( data_point_dict[ 'Input_Array_Pos' ] ) ] )
-
-
+    ###  Okay, before ramping up... need to account for "NAN" of Table based loggers right here.
+    temp_de = line_str[ int( data_point_dict[ 'Input_Array_Pos' ] ) ]
+    temp_ode = old_line_str[ int( data_point_dict[ 'Input_Array_Pos' ] ) ] 
+    # .isdigit() was failing testing the whole floating point number so now we're just looking at the last character / digit.
+    if temp_de[-1].isdigit() :
+        data_element = float( temp_de )
+    else :
+        data_element = float(bad_data_val)
+    if temp_ode.isdigit() :
+        old_data_element = float( temp_ode)
+    else :
+        old_data_element = float(bad_data_val)
     if data_point_dict['Data_Type'] == 'num' or data_point_dict['Data_Type'] == 'net' or data_point_dict['Data_Type'] == 'precip':
         # process as a number, no number crunching to do.
         processed_value = qc_check(data_element, \
@@ -633,7 +656,7 @@ def flux(data_element, posical, negacal, bad_data_val) :
     arg 1 = multiplier for a positive data element value (posical  * data_element ^ 1)
     arg 2 = multiplier for a negative data element value (negacal  * data_element ^ 1)
     arg 3 = bad data value (in case of error)
-    Return = result from the polynomial
+    Return = result from the if (data_element >= 0) then: (posical * data_element) else: (negacal * data_element)
     """
     if abs(data_element) < 6999 :
         if data_element >= 0 :
@@ -654,7 +677,7 @@ def rt_sensor(data_element, val_a, val_b, val_c, bad_data_val) :
     arg 2 = an offset
     arg 3 = a multiplier
     arg 4 = bad data value (in case of error)
-    Return = result from the polynomial
+    Return = ( ( data_element / val_a ) + val_b ) / val_c
     """
 
     if abs(data_element) < 6999 :
