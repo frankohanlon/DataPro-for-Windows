@@ -21,6 +21,9 @@ do directory checks and create them if they're not present (such as for the erro
 declare behavior for arrays that are missing the year (like a command line option maybe?)
 bob@bob_workstation /work/python/py_datapro
 $ python datapro.py c:\\data\\atlas\\C1-grid\\c1-met_key.py.txt
+
+
+DataPro-for-Windows
 """
 
 import ConfigParser
@@ -327,13 +330,10 @@ for line in all_input_data :
                     pass
     # okay, the lines have been skipped, into the meat of the processing.
     if skippedlines > int(keyfile.get('main', 'first_data_line')) :
-
         if len(in_array) == int(keyfile.get('main', 'arrays')) :
-
             try:
                 # Here is a test to make sure the first column value is really an integer
                 array_id = int(in_array[0])
-    #            print 'array_id = %s & %i,   logger type = %s' % (keyfile.get('main', 'array_id'), in_array[0], keyfile.get('main','logger_type'))
                 if int(keyfile.get('main', 'array_id')) == int(in_array[0]) and (keyfile.get('main','logger_type') == 'CR10X' or keyfile.get('main','logger_type') == 'Array'):
                     ##################
                     ## Get the date ##
@@ -346,7 +346,6 @@ for line in all_input_data :
                         hhmm = in_array[timecol]
                         day = int(in_array[daycol])
                         year = int(in_array[yearcol])
-                        #print 'year = %i, day = %i, time = %s' % (year, day, hhmm)
                         datez = dp_funks.juliantodate(year, day, hhmm)
                     # case 3:  array based data without a year column
                     elif yearcol == -1 and tmstmpcol == -1 :
@@ -360,11 +359,8 @@ for line in all_input_data :
                         hhmm = in_array[timecol]
                         day = int(in_array[daycol])
                         year = dp_funks.getyear(day)
-     #                   print line
-     #                   print oldline
-     #                   print 'year = %i, day = %i, time = %s' % (year, day, hhmm)
                         datez = dp_funks.juliantodate(year, day, hhmm)
-    #                    print datez
+
 
                     # okay now datez looks like this: "2008-09-10 21:00:00"
                     # ready to move on to the rest.
@@ -421,7 +417,7 @@ for line in all_input_data :
                                                 keyfile.get('main', 'qc_log_dir'), \
                                                 keyfile.get('main', 'bad_data_val'))
                                 out_tempstring = '%3.2f' % (out_data)
-                                out_string = ','.join([datez, str(out_tempstring)+ "\n" ]) #+ os.linesep])
+                                out_string = ','.join([datez, str(out_tempstring)+ "\n" ]) 
                                 output_file[siteList[element]['d_element']].writelines(out_string)
 
                     oldline = line
