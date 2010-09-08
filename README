@@ -1,5 +1,7 @@
 Windows version of DataPro
-At some point soon this will be merged back into the regular data pro but I think there were a couple windows idiosyncrasies that made it easier to just start this alt version rather but of course that was pre-git.  --Bob
+Old version, not to be updated again.
+
+As of 9/8/2010 the regular version of datapro @ http://github.com/frankohanlon/DataPro  is 100% compatible with either Windows or non Windows like OSX, debian, etc.
 
 
 Also, the license for this code is: GPL V3: http://www.gnu.org/licenses/gpl-3.0.html
